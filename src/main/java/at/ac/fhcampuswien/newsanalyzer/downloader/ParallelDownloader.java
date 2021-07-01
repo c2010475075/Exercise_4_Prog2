@@ -9,17 +9,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ParallelDownloader extends Downloader{
+
     @Override
     public int process(List<String> urls){
-        int count=0;
+        int count = 0;
 
         int processors = Runtime.getRuntime().availableProcessors();
         ExecutorService threads = Executors.newFixedThreadPool(processors);
 
         List<Callable<String>> callables = new ArrayList<>();
-        for (int i = 0; i < urls.size(); i++){
+        for (int i = 0; i < urls.size(); i++)
+        {
             int index = i;
-            Callable<String> todo =()-> saveUrl2File(urls.get(index));
+            Callable<String> todo = ()-> saveUrl2File(urls.get(index));
             callables.add(todo);
         }
         threads.shutdown();
